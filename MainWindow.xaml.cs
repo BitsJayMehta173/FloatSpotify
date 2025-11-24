@@ -3,13 +3,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms; // Requires System.Windows.Forms reference
-using System.Drawing;       // Requires System.Drawing reference
+using System.Windows.Forms;
+using System.Drawing;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using System.Windows.Media;
 using System.Windows.Input;
+using System.Diagnostics;
+using System.IO;
 
 namespace FloatingNote
 {
@@ -18,6 +20,8 @@ namespace FloatingNote
         private NotifyIcon _notifyIcon;
         private FloatingNoteWindow _noteWindow;
         private int _currentGradientIndex = 0;
+
+        private Process _pythonProcess;
 
         public ObservableCollection<ReminderItem> Reminders { get; set; } = new ObservableCollection<ReminderItem>();
         private ReminderItem _editingItem = null;
@@ -36,6 +40,71 @@ namespace FloatingNote
             FontSizeInput.Text = "60";
         }
 
+        // --- PYTHON PROCESS MANAGEMENT ---
+
+        private void StartPythonBackend()
+        {
+            try
+            {
+                string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "now_playing.py");
+
+                if (!File.Exists(scriptPath))
+                {
+                    ShowError($"Could not find 'now_playing.py' at:\n{scriptPath}\nPlease move the file there.");
+                    return;
+                }
+
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "python",
+                    Arguments = $"\"{scriptPath}\"",
+                    UseShellExecute = false,
+
+                    // IMPORTANT: Set this to FALSE so the window appears initially.
+                    // The Python script will hide itself after auth or timeout.
+                    CreateNoWindow = false,
+
+                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                };
+
+                _pythonProcess = Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                ShowError($"Failed to start Sync Service: {ex.Message}");
+            }
+        }
+
+        private void StopPythonBackend()
+        {
+            try
+            {
+                if (_pythonProcess != null && !_pythonProcess.HasExited)
+                {
+                    _pythonProcess.Kill();
+                    _pythonProcess = null;
+                }
+            }
+            catch { }
+        }
+
+        // --- APP LIFECYCLE ---
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            CreateTrayIcon();
+            StartPythonBackend();
+        }
+
+        private void OnExitApplication(object sender, EventArgs e)
+        {
+            _notifyIcon?.Dispose();
+            _noteWindow?.Close();
+            StopPythonBackend();
+            Application.Current.Shutdown();
+        }
+
+        // --- REST OF CODE ---
         private void GradientButton_Click(object sender, RoutedEventArgs e)
         {
             _currentGradientIndex = (_currentGradientIndex + 1) % GradientPresets.SpotifyLikeGradients.Count;
@@ -46,10 +115,8 @@ namespace FloatingNote
         {
             ErrorText.Visibility = Visibility.Collapsed;
 
-            // Check if Spotify Mode is requested
             bool isSpotify = SpotifyCheckBox.IsChecked == true;
 
-            // Only enforce "At least one message" if we are NOT in Spotify mode
             if (!isSpotify && Reminders.Count == 0)
             {
                 ShowError("Please add at least one message.");
@@ -62,23 +129,17 @@ namespace FloatingNote
                 return;
             }
 
-            // Create settings with the new Spotify Flag
             var settings = new Settings
             {
                 Items = Reminders.ToList(),
                 StartFontSize = fontSize,
                 IsGlowEnabled = GlowCheckBox.IsChecked == true,
-                IsSpotifyMode = isSpotify // <--- PASSING THE FLAG
+                IsSpotifyMode = isSpotify
             };
 
-            // Close existing window if open
             _noteWindow?.Close();
-
-            // Launch the floating window
             _noteWindow = new FloatingNoteWindow(settings);
             _noteWindow.Show();
-
-            // Hide dashboard
             this.Hide();
         }
 
@@ -86,13 +147,6 @@ namespace FloatingNote
         {
             ErrorText.Text = msg;
             ErrorText.Visibility = Visibility.Visible;
-        }
-
-        // --- APP LIFECYCLE ---
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            CreateTrayIcon();
         }
 
         private void CreateTrayIcon()
@@ -119,13 +173,6 @@ namespace FloatingNote
             if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal;
         }
 
-        private void OnExitApplication(object sender, EventArgs e)
-        {
-            _notifyIcon?.Dispose();
-            _noteWindow?.Close();
-            Application.Current.Shutdown();
-        }
-
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             OnExitApplication(null, EventArgs.Empty);
@@ -133,29 +180,22 @@ namespace FloatingNote
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // Minimize to tray instead of closing
             e.Cancel = true;
             this.Hide();
         }
 
-        // --- LIST MANAGEMENT (Add, Edit, Delete) ---
-
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(InputMsg.Text)) return;
-
             if (!int.TryParse(InputSec.Text, out int s)) s = 5;
 
             if (_editingItem != null)
             {
                 _editingItem.Message = InputMsg.Text;
                 _editingItem.DurationSeconds = s;
-
-                // Refresh list view hack
                 int idx = Reminders.IndexOf(_editingItem);
                 Reminders.RemoveAt(idx);
                 Reminders.Insert(idx, _editingItem);
-
                 _editingItem = null;
                 AddUpdateBtn.Content = "ADD MESSAGE";
             }
@@ -163,7 +203,6 @@ namespace FloatingNote
             {
                 Reminders.Add(new ReminderItem { Message = InputMsg.Text, DurationSeconds = s });
             }
-
             InputMsg.Clear();
             InputSec.Text = "5";
         }
