@@ -1,0 +1,171 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Dhara\\FloatingReminder\\Float\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\floatingnotewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:floatingnotewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\floatingnotewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:floatingnotewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|d:\\dhara\\floatingreminder\\float\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\remainderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:remainderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\halfsizeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:halfsizeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\gradientpresets.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:gradientpresets.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\fontloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:fontloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FloatingNoteWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\FloatingNoteWindow.xaml.cs",
+              "RelativeDocumentMoniker": "FloatingNoteWindow.xaml.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\FloatingNoteWindow.xaml.cs",
+              "RelativeToolTip": "FloatingNoteWindow.xaml.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAQwEMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:11.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:19.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FloatingNoteWindow.xaml",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\FloatingNoteWindow.xaml",
+              "RelativeDocumentMoniker": "FloatingNoteWindow.xaml",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\FloatingNoteWindow.xaml",
+              "RelativeToolTip": "FloatingNoteWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-24T21:18:13.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Settings.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\Settings.cs",
+              "RelativeDocumentMoniker": "Settings.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\Settings.cs",
+              "RelativeToolTip": "Settings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:21.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-24T21:18:17.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RemainderItem.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\RemainderItem.cs",
+              "RelativeDocumentMoniker": "RemainderItem.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\RemainderItem.cs",
+              "RelativeToolTip": "RemainderItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:20.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HalfSizeConverter.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\HalfSizeConverter.cs",
+              "RelativeDocumentMoniker": "HalfSizeConverter.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\HalfSizeConverter.cs",
+              "RelativeToolTip": "HalfSizeConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:16.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GradientPresets.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\GradientPresets.cs",
+              "RelativeDocumentMoniker": "GradientPresets.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\GradientPresets.cs",
+              "RelativeToolTip": "GradientPresets.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:15.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FontLoader.cs",
+              "DocumentMoniker": "D:\\Dhara\\FloatingReminder\\Float\\FontLoader.cs",
+              "RelativeDocumentMoniker": "FontLoader.cs",
+              "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\FontLoader.cs",
+              "RelativeToolTip": "FontLoader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T21:18:14.789Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

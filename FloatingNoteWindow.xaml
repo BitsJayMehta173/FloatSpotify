@@ -1,0 +1,111 @@
+﻿<Window x:Class="FloatingNote.FloatingNoteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:FloatingNote"
+        Title="Floating Note"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        ShowInTaskbar="False"
+        IsManipulationEnabled="True"
+        ManipulationDelta="Window_ManipulationDelta"
+        PreviewMouseWheel="Window_PreviewMouseWheel">
+
+    <Window.Resources>
+        <!-- subtle silver text glow -->
+        <DropShadowEffect x:Key="SilverGlow"
+                          Color="Silver"
+                          BlurRadius="6"
+                          ShadowDepth="0"
+                          Opacity="0.5"/>
+
+        <!-- round button template -->
+        <Style x:Key="CircleButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"
+                                     Stroke="{TemplateBinding BorderBrush}"
+                                     StrokeThickness="{TemplateBinding BorderThickness}"/>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- full-screen container -->
+    <Grid x:Name="RootGrid"
+          Background="Transparent">
+
+        <!-- draggable text area -->
+        <!-- Added Alignments and RenderTransformOrigin for center-popping effect -->
+        <Border x:Name="TextArea"
+                Background="Transparent"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                RenderTransformOrigin="0.5,0.5"
+                MouseLeftButtonDown="TextArea_MouseLeftButtonDown"
+                MouseMove="TextArea_MouseMove"
+                MouseLeftButtonUp="TextArea_MouseLeftButtonUp">
+
+            <!-- Defines both Scale (for pop) and Translate (for drag) -->
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="PopScale" ScaleX="1" ScaleY="1"/>
+                    <TranslateTransform x:Name="DragTranslate" X="0" Y="0"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+
+            <Grid>
+                <!-- the floating text -->
+                <TextBlock x:Name="ReminderText"
+                           Text="Take a deep breath 💨"
+                           Foreground="White"
+                           FontSize="60"
+                           FontWeight="Bold"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           Effect="{StaticResource SilverGlow}"
+                           FontFamily="{x:Static local:FontLoader.NoteFontFamily}" />
+
+                <!-- Hitbox Border -->
+                <Border x:Name="ButtonHitbox"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        Margin="-15, -15, -15, -15"
+                        Padding="20"
+                        MouseEnter="ButtonHitbox_MouseEnter"
+                        MouseLeave="ButtonHitbox_MouseLeave">
+
+                    <!-- close button -->
+                    <Button x:Name="CloseButton"
+                            Content="×"
+                            Width="36"
+                            Height="36"
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Background="#33FFFFFF"
+                            Foreground="White"
+                            BorderBrush="White"
+                            BorderThickness="1"
+                            Cursor="Hand"
+                            Opacity="0"
+                            Click="CloseButton_Click"
+                            Style="{StaticResource CircleButtonStyle}">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="3" Opacity="0.3" ShadowDepth="0"/>
+                        </Button.Effect>
+                    </Button>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
