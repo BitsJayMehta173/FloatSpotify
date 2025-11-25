@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "D:\\Dhara\\FloatingReminder\\Float\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|d:\\dhara\\floatingreminder\\float\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|d:\\dhara\\floatingreminder\\float\\floatingnotewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|D:\\Dhara\\FloatingReminder\\Float\\floatingnotewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1218BF13-CC41-4C99-93E4-30585C77F1E6}|FloatingReminder.csproj|solutionrelative:floatingnotewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -58,8 +58,7 @@
               "RelativeToolTip": "FloatingNoteWindow.xaml.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAQwEMAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T21:18:11.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T21:18:11.18Z"
             },
             {
               "$type": "Document",
@@ -69,7 +68,7 @@
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "D:\\Dhara\\FloatingReminder\\Float\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAAMUAAAAAAAAAAAAcwOAAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAUwFcAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-24T21:18:19.129Z",
               "EditorCaption": ""

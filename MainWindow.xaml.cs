@@ -46,27 +46,45 @@ namespace FloatingNote
         {
             try
             {
+                // 1. Look for the COMPILED .exe first
+                string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "now_playing.exe");
+
+                // 2. Fallback: Look for the .py script (useful if you are still testing in VS)
                 string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "now_playing.py");
 
-                if (!File.Exists(scriptPath))
+                ProcessStartInfo startInfo = null;
+
+                if (File.Exists(exePath))
                 {
-                    ShowError($"Could not find 'now_playing.py' at:\n{scriptPath}\nPlease move the file there.");
+                    // PRODUCTION MODE: Run the compiled Python exe
+                    startInfo = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        Arguments = "", // No arguments needed, it's self-contained
+                        UseShellExecute = false,
+                        CreateNoWindow = false, // Allow it to show initially (script hides itself)
+                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                    };
+                }
+                else if (File.Exists(scriptPath))
+                {
+                    // DEVELOPMENT MODE: Run via Python interpreter
+                    startInfo = new ProcessStartInfo
+                    {
+                        FileName = "python",
+                        Arguments = $"\"{scriptPath}\"",
+                        UseShellExecute = false,
+                        CreateNoWindow = false,
+                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                    };
+                }
+                else
+                {
+                    ShowError($"Could not find 'now_playing.exe' or 'now_playing.py' in:\n{AppDomain.CurrentDomain.BaseDirectory}");
                     return;
                 }
 
-                var startInfo = new ProcessStartInfo
-                {
-                    FileName = "python",
-                    Arguments = $"\"{scriptPath}\"",
-                    UseShellExecute = false,
-
-                    // IMPORTANT: Set this to FALSE so the window appears initially.
-                    // The Python script will hide itself after auth or timeout.
-                    CreateNoWindow = false,
-
-                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                };
-
+                // 3. Launch
                 _pythonProcess = Process.Start(startInfo);
             }
             catch (Exception ex)
