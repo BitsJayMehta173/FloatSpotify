@@ -62,7 +62,7 @@ namespace FloatingNote
                         FileName = exePath,
                         Arguments = "", // No arguments needed, it's self-contained
                         UseShellExecute = false,
-                        CreateNoWindow = false, // Allow it to show initially (script hides itself)
+                        CreateNoWindow = true, // TRUE = Run completely invisible (background only)
                         WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                     };
                 }
@@ -74,7 +74,7 @@ namespace FloatingNote
                         FileName = "python",
                         Arguments = $"\"{scriptPath}\"",
                         UseShellExecute = false,
-                        CreateNoWindow = false,
+                        CreateNoWindow = true, // TRUE = Run completely invisible (background only)
                         WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                     };
                 }
