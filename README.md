@@ -2,6 +2,9 @@
 
 A Desktop Overlay Background widget that displays real-time, synchronized lyrics for your currently playing Spotify track. It features a modern, floating UI with a "Glow" effect, drag-and-drop positioning, and seamless backend integration.
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/47994646-8ee6-41a4-a75a-cc57eda354bb" />
+
+
 ## Purpose
 
 To create a distraction free environment while working and when you cannot remember lyrics and want to sing along but are doing some work in your machine. You will get overlayed transparent display with lyrics and just go with the flow of your work along with the lyrics.
