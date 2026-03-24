@@ -23,73 +23,61 @@ namespace FloatingNote
 
         private Process _pythonProcess;
 
-        public ObservableCollection<ReminderItem> Reminders { get; set; } = new ObservableCollection<ReminderItem>();
+        public ObservableCollection<ReminderItem> Reminders { get; set; }
+            = new ObservableCollection<ReminderItem>();
+
         private ReminderItem _editingItem = null;
 
         public MainWindow()
         {
             InitializeComponent();
+            _ = FontLoader.EnsureFontDownloadedAsync();
+
 
             if (Reminders.Count == 0)
             {
-                Reminders.Add(new ReminderItem { Message = "Welcome to your new dashboard! ✨", DurationSeconds = 5 });
-                Reminders.Add(new ReminderItem { Message = "Add your own messages below 👇", DurationSeconds = 8 });
+                Reminders.Add(new ReminderItem
+                {
+                    Message = "Welcome to your new dashboard! ✨",
+                    DurationSeconds = 5
+                });
+
+                Reminders.Add(new ReminderItem
+                {
+                    Message = "Add your own messages below 👇",
+                    DurationSeconds = 8
+                });
             }
 
             RemindersList.ItemsSource = Reminders;
             FontSizeInput.Text = "60";
         }
 
-        // --- PYTHON PROCESS MANAGEMENT ---
+        // ---------------- PYTHON BACKEND ----------------
 
         private void StartPythonBackend()
         {
             try
             {
-                // 1. Look for the COMPILED .exe first
-                string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "now_playing.exe");
+                string scriptPath = System.IO.Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "now_playing.py"
+                );
 
-                // 2. Fallback: Look for the .py script (useful if you are still testing in VS)
-                string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "now_playing.py");
-
-                ProcessStartInfo startInfo = null;
-
-                if (File.Exists(exePath))
+                ProcessStartInfo psi = new ProcessStartInfo
                 {
-                    // PRODUCTION MODE: Run the compiled Python exe
-                    startInfo = new ProcessStartInfo
-                    {
-                        FileName = exePath,
-                        Arguments = "", // No arguments needed, it's self-contained
-                        UseShellExecute = false,
-                        CreateNoWindow = true, // TRUE = Run completely invisible (background only)
-                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                    };
-                }
-                else if (File.Exists(scriptPath))
-                {
-                    // DEVELOPMENT MODE: Run via Python interpreter
-                    startInfo = new ProcessStartInfo
-                    {
-                        FileName = "python",
-                        Arguments = $"\"{scriptPath}\"",
-                        UseShellExecute = false,
-                        CreateNoWindow = true, // TRUE = Run completely invisible (background only)
-                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                    };
-                }
-                else
-                {
-                    ShowError($"Could not find 'now_playing.exe' or 'now_playing.py' in:\n{AppDomain.CurrentDomain.BaseDirectory}");
-                    return;
-                }
+                    FileName = "python",
+                    Arguments = $"\"{scriptPath}\"",
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                };
 
-                // 3. Launch
-                _pythonProcess = Process.Start(startInfo);
+                App.PythonProcess = Process.Start(psi);
             }
             catch (Exception ex)
             {
-                ShowError($"Failed to start Sync Service: {ex.Message}");
+                ShowError("Failed to start Python backend: " + ex.Message);
             }
         }
 
@@ -106,7 +94,7 @@ namespace FloatingNote
             catch { }
         }
 
-        // --- APP LIFECYCLE ---
+        // ---------------- APP LIFECYCLE ----------------
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -116,17 +104,32 @@ namespace FloatingNote
 
         private void OnExitApplication(object sender, EventArgs e)
         {
+            try
+            {
+                if (App.PythonProcess != null && !App.PythonProcess.HasExited)
+                {
+                    App.PythonProcess.Kill();
+                    App.PythonProcess.Dispose();
+                }
+            }
+            catch { }
+
             _notifyIcon?.Dispose();
             _noteWindow?.Close();
-            StopPythonBackend();
+
             Application.Current.Shutdown();
         }
 
-        // --- REST OF CODE ---
+        // ---------------- UI EVENTS ----------------
+
         private void GradientButton_Click(object sender, RoutedEventArgs e)
         {
-            _currentGradientIndex = (_currentGradientIndex + 1) % GradientPresets.SpotifyLikeGradients.Count;
-            this.Resources["DashboardBackgroundBrush"] = GradientPresets.SpotifyLikeGradients[_currentGradientIndex];
+            _currentGradientIndex =
+                (_currentGradientIndex + 1) %
+                GradientPresets.SpotifyLikeGradients.Count;
+
+            this.Resources["DashboardBackgroundBrush"] =
+                GradientPresets.SpotifyLikeGradients[_currentGradientIndex];
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -156,8 +159,10 @@ namespace FloatingNote
             };
 
             _noteWindow?.Close();
+
             _noteWindow = new FloatingNoteWindow(settings);
             _noteWindow.Show();
+
             this.Hide();
         }
 
@@ -166,6 +171,8 @@ namespace FloatingNote
             ErrorText.Text = msg;
             ErrorText.Visibility = Visibility.Visible;
         }
+
+        // ---------------- TRAY ICON ----------------
 
         private void CreateTrayIcon()
         {
@@ -188,7 +195,9 @@ namespace FloatingNote
         {
             this.Show();
             this.Activate();
-            if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal;
+
+            if (WindowState == WindowState.Minimized)
+                WindowState = WindowState.Normal;
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -196,31 +205,44 @@ namespace FloatingNote
             OnExitApplication(null, EventArgs.Empty);
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender,
+            System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
         }
 
+        // ---------------- REMINDER MANAGEMENT ----------------
+
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(InputMsg.Text)) return;
-            if (!int.TryParse(InputSec.Text, out int s)) s = 5;
+            if (string.IsNullOrWhiteSpace(InputMsg.Text))
+                return;
+
+            if (!int.TryParse(InputSec.Text, out int s))
+                s = 5;
 
             if (_editingItem != null)
             {
                 _editingItem.Message = InputMsg.Text;
                 _editingItem.DurationSeconds = s;
+
                 int idx = Reminders.IndexOf(_editingItem);
                 Reminders.RemoveAt(idx);
                 Reminders.Insert(idx, _editingItem);
+
                 _editingItem = null;
                 AddUpdateBtn.Content = "ADD MESSAGE";
             }
             else
             {
-                Reminders.Add(new ReminderItem { Message = InputMsg.Text, DurationSeconds = s });
+                Reminders.Add(new ReminderItem
+                {
+                    Message = InputMsg.Text,
+                    DurationSeconds = s
+                });
             }
+
             InputMsg.Clear();
             InputSec.Text = "5";
         }
@@ -241,6 +263,7 @@ namespace FloatingNote
             if (sender is Button b && b.Tag is ReminderItem item)
             {
                 Reminders.Remove(item);
+
                 if (_editingItem == item)
                 {
                     _editingItem = null;
